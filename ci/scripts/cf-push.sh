@@ -3,6 +3,9 @@
 set -eu
 
 CF_CLI_VERSION=${CF_CLI_VERSION:-6.49.0}
+: ${CF_API:?required}
+: ${CF_USERNAME:?required}
+: ${CF_PASSWORD:?required}
 
 mkdir -p bin
 export PATH=$PWD/bin:$PATH
@@ -17,4 +20,7 @@ export PATH=$PWD/bin:$PATH
 )
 }
 
-cf version
+( set -x; cf version )
+
+echo cf api ${CF_API} ${CF_SKIP_SSL_VALIDATION:=--skip-ssl-validation} -u ${CF_USERNAME} -p [redacted]
+cf api ${CF_API} ${CF_SKIP_SSL_VALIDATION:=--skip-ssl-validation} -u ${CF_USERNAME} -p ${CF_PASSWORD}

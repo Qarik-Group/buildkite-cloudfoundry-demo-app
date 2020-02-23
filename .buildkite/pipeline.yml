@@ -1,4 +1,10 @@
+env:
+  CF_API: ""
+
 steps:
+  # - plugins:
+  #   # https://github.com/buildkite-plugins/detect-clowns-buildkite-plugin
+  #   - detect-clowns#v2.0.0: ~
   - label: ":hammer: CF Push"
     command: "ci/scripts/cf-push.sh"
     artifact_paths: "."
