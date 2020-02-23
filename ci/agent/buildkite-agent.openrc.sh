@@ -22,7 +22,7 @@ start() {
     kill -0 $(cat /var/run/buildkite-agent.pid) &> /dev/null
     if [ $? -ne 0 ]; then
         echo "failed to start buildkite agents"
-        cat /var/log/buildkite.*.log
+        cat /var/log/buildkite.log
         exit 1
     fi
 }
