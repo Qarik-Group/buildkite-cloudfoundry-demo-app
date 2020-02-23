@@ -1,6 +1,7 @@
 steps:
   - label: ":hammer: CF Push"
     command: "ci/scripts/cf-push.sh"
-    artifact_paths: "*"
-    agents:
-      queue: "${BUILDKITE_AGENT_META_DATA_QUEUE:-default}"
+    artifact_paths: "."
+    plugins:
+      - docker#v3.5.0:
+          image: "starkandwayne/update-all-cf-buildpacks:latest"
