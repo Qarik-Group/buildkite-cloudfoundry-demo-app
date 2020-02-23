@@ -4,7 +4,7 @@ set -eu
 
 CF_CLI_VERSION=${CF_CLI_VERSION:-6.49.0}
 
-mkdir bin
+mkdir -p bin
 export PATH=$PWD/bin:$PATH
 
 [[ -x "$(command -v cf)" ]] || {
