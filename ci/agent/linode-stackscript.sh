@@ -15,7 +15,8 @@ service docker start
 
 # Create buildkite user/group
 addgroup -g 100000 buildkite
-adduser -G docker -G buildkite -u 100000 -D buildkite
+adduser -G buildkite -u 100000 -D buildkite
+addgroup buildkite docker
 
 TOKEN="$BUILDKITE_TOKEN" bash -c "`curl -sL https://raw.githubusercontent.com/buildkite/agent/master/install.sh`"
 
