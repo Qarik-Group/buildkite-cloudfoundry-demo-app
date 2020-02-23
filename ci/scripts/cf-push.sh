@@ -12,7 +12,7 @@ export PATH=$PWD/bin:$PATH
   # FIXME - hard-coded $os
   os=linux64
   url="https://packages.cloudfoundry.org/stable?release=${os}-binary&version=${CF_CLI_VERSION}&source=github-rel"
-  curl -L -o bin/cf "$url"
+  curl -L "$url" | tar -C bin -xvz cf
   chmod +x bin/cf
 )
 }
