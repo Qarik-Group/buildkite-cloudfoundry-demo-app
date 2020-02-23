@@ -6,7 +6,7 @@ depend() {
 }
 
 start() {
-    BUILDKITE_DIR=/root/.buildkite-agent
+    BUILDKITE_DIR=/home/buildkite/.buildkite-agent
 
     mkdir -p -m 0755 $BUILDKITE_DIR/builds
     mkdir -p -m 0755 $BUILDKITE_DIR/plugins
