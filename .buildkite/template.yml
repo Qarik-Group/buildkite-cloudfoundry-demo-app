@@ -1,0 +1,5 @@
+name: "Cloud Foundry Demo App"
+description: "An example repository to deploy an application to Cloud Foundry"
+steps:
+  - command: "buildkite-agent pipeline upload"
+    label: ":pipeline:"
