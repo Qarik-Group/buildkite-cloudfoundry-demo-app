@@ -1,7 +1,8 @@
 steps:
   - label: ":pipeline:"
     command: "ci/scripts/build-pipeline-from-env-vars.sh | buildkite-agent pipeline upload"
-    plugins:
-      - docker#v3.5.0:
-          image: "starkandwayne/update-all-cf-buildpacks:latest"
-          propagate-environment: true
+    # TODO: need an image with buildkite-agent & git
+    # plugins:
+    #   - docker#v3.5.0:
+    #       image: "starkandwayne/update-all-cf-buildpacks:latest"
+    #       propagate-environment: true
