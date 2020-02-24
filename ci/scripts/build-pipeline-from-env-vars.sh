@@ -2,6 +2,8 @@
 
 set -eu
 
+env | sort
+
 cat <<YAML
 steps:
 - block: "Deploy"
