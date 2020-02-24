@@ -22,5 +22,8 @@ export PATH=$PWD/bin:$PATH
 
 ( set -x; cf version )
 
-echo cf api ${CF_API} ${CF_SKIP_SSL_VALIDATION:=--skip-ssl-validation} -u ${CF_USERNAME} -p [redacted]
-cf api ${CF_API} ${CF_SKIP_SSL_VALIDATION:=--skip-ssl-validation} -u ${CF_USERNAME} -p ${CF_PASSWORD}
+echo cf api "${CF_API}" ${CF_SKIP_SSL_VALIDATION:=--skip-ssl-validation}
+cf api "${CF_API}" ${CF_SKIP_SSL_VALIDATION:=--skip-ssl-validation}
+
+echo cf login "${CF_USERNAME}" [redacted]
+echo cf login "${CF_USERNAME}" "${CF_PASSWORD}"
