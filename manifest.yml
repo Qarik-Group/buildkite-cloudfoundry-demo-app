@@ -1,0 +1,10 @@
+applications:
+- name: buildkite-cloudfoundry-demo-app
+  buildpacks:
+  - go_buildpack
+  disk_quota: 1G
+  instances: 1
+  memory: 64M
+  stack: cflinuxfs3
+  routes:
+  - route: ((route))

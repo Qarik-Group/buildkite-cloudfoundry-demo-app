@@ -4,10 +4,14 @@ set -eu
 
 CF_ORGANIZATION=${CF_ORGANIZATION:-$(buildkite-agent meta-data get cf-organization)}
 CF_SPACE=${CF_SPACE:-$(buildkite-agent meta-data get cf-space)}
+CF_ROUTE=${CF_ROUTE:-$(buildkite-agent meta-data get cf-route)}
 
 : ${CF_API:?required}
 : ${CF_USERNAME:?required}
 : ${CF_PASSWORD:?required}
+: ${CF_ORGANIZATION:?required}
+: ${CF_SPACE:?required}
+: ${CF_ROUTE:?required}
 
 CF_CLI_VERSION=${CF_CLI_VERSION:-6.49.0}
 
@@ -38,3 +42,6 @@ echo
 echo "+ cf target -o \"${CF_ORGANIZATION}\" -s \"${CF_SPACE}\""
 cf target -o "${CF_ORGANIZATION}" -s "${CF_SPACE}"
 echo
+
+echo "+ cf push --var route=${CF_ROUTE}"
+cf push --var route="${CF_ROUTE}"
