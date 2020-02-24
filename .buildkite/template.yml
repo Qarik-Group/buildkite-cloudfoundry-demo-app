@@ -1,6 +1,6 @@
 name: "Cloud Foundry Demo App"
 description: |
-  Set the required env vars for target Cloud Foundry.
+  Deploy an application to CF, with optional staging -> production.
 env:
   CF_ORGANIZATION: ""
   CF_SPACE_STAGING: ""
@@ -12,6 +12,6 @@ env:
   CF_PASSWORD: "<should provide via secrets; delete me>"
   CF_SKIP_SSL_VALIDATION: ""
 
-  steps:
+steps:
   - command: "buildkite-agent pipeline upload .buildkite/pipeline.dynamic.yml"
     label: ":pipeline:"
