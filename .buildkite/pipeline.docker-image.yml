@@ -1,10 +1,11 @@
 steps:
-  - command:
+  - label: ":docker:"
+    command:
       - "docker build . -t starkandwayne/buildkite-cloudfoundry-demo-app:latest"
       - "docker push starkandwayne/buildkite-cloudfoundry-demo-app:latest"
     plugins:
       - docker-login#v2.0.1:
-          username: starkandwaynebot
+          username: drnic
           password-env: DOCKER_LOGIN_PASSWORD
       - docker#v3.5.0:
           image: "docker:latest"
