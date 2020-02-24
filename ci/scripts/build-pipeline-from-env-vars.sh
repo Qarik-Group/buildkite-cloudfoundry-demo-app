@@ -27,4 +27,6 @@ steps:
       CF_SPACE_SELECTOR: CF_SPACE_PRODUCTION
       CF_ROUTE_SELECTOR: CF_ROUTE_PRODUCTION
 YAML
+else
+  echo "steps: []"
 fi
