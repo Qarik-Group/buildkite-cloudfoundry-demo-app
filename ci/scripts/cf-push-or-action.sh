@@ -6,6 +6,14 @@
 set -eu
 
 CF_ORGANIZATION=${CF_ORGANIZATION:-$(buildkite-agent meta-data get cf-organization)}
+
+[[ "${CF_SPACE_SELECTOR:-X}" == "X" ]] || {
+  CF_SPACE="${!CF_SPACE_SELECTOR}"
+}
+[[ "${CF_ROUTE_SELECTOR:-X}" == "X" ]] || {
+  CF_ROUTE="${!CF_ROUTE_SELECTOR}"
+}
+
 CF_SPACE=${CF_SPACE:-$(buildkite-agent meta-data get cf-space)}
 CF_ROUTE=${CF_ROUTE:-$(buildkite-agent meta-data get cf-route)}
 
