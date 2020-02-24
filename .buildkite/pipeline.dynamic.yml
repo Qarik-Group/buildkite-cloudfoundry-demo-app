@@ -1,0 +1,3 @@
+steps:
+- label: ":pipeline:"
+  command: "ci/scripts/build-pipeline-from-env-vars.sh | buildkite-agent pipeline upload"
