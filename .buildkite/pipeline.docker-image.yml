@@ -1,5 +1,6 @@
 steps:
-  - plugins:
+  - command: env
+    plugins:
       - docker-login#v2.0.1:
           username: starkandwaynebot
           password-env: DOCKER_LOGIN_PASSWORD
