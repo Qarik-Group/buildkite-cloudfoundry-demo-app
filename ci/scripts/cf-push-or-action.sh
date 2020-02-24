@@ -46,7 +46,7 @@ echo "+ cf target -o \"${CF_ORGANIZATION}\" -s \"${CF_SPACE}\""
 cf target -o "${CF_ORGANIZATION}" -s "${CF_SPACE}"
 echo
 
-if [[ "${CF_ACTION}" == "delete" ]]; then
+if [[ "${CF_ACTION:-push}" == "delete" ]]; then
   echo "+ cf delete buildkite-cloudfoundry-demo-app"
   cf delete buildkite-cloudfoundry-demo-app
 else
