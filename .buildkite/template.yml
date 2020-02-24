@@ -3,9 +3,11 @@ description: |
   Set the required env vars for target Cloud Foundry.
 env:
   CF_ORGANIZATION: ""
-  CF_SPACE: ""
-  CF_ROUTE: ""
+  CF_SPACE_STAGING: ""
+  CF_ROUTE_STAGING: ""
+  CF_SPACE_PRODUCTION: ""
+  CF_ROUTE_PRODUCTION: ""
 
   steps:
-  - command: "buildkite-agent pipeline upload .buildkite/pipeline.single.yml"
+  - command: "buildkite-agent pipeline upload .buildkite/pipeline.staging-then-production.yml"
     label: ":pipeline:"
