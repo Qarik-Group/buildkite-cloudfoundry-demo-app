@@ -27,3 +27,8 @@ steps:
           image: "starkandwayne/update-all-cf-buildpacks:latest"
           propagate-environment: true
     timeout_in_minutes: 5
+    env:
+      CF_API: ""
+      CF_SKIP_SSL_VALIDATION: ""
+      CF_USERNAME: ""
+      CF_PASSWORD: ""
