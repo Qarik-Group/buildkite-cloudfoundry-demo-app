@@ -2,11 +2,14 @@
 
 set -eu
 
-if [[ -n "${CF_ROUTE:-}" && -n "${CF_SPACE:-}" ]]; then
-  echo "Configuring for single deployment" >&2
+if [[ -n "${CF_SPACE_PRODUCTION:-}" && -n "${CF_ROUTE_PRODUCTION:-}" ]]; then
+  echo "Adding production to pipeline" >&2
   cat <<YAML
 steps:
-  - label: ":cloudfoundry:"
+  - block: "Deploy"
+    prompt: "Deploy to production?"
+
+  - label: ":cloudfoundry: production"
     command: "ci/scripts/cf-push-or-action.sh"
     artifact_paths: "."
     concurrency: 1
@@ -21,11 +24,7 @@ steps:
       CF_SKIP_SSL_VALIDATION: ""
       CF_USERNAME: ""
       CF_PASSWORD: ""
-YAML
-else
-  cat <<YAML
-steps:
-- block: "Deploy"
-  prompt: "Deploy to production?"
+      CF_SPACE_SELECTOR: CF_SPACE_PRODUCTION
+      CF_ROUTE_SELECTOR: CF_ROUTE_PRODUCTION
 YAML
 fi
