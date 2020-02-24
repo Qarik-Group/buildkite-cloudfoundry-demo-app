@@ -1,12 +1,11 @@
 name: "Cloud Foundry Demo App"
 description: |
-  An example repository to deploy an application to Cloud Foundry.
+  Set the required env vars for target Cloud Foundry.
+env:
+  CF_ORGANIZATION: ""
+  CF_SPACE: ""
+  CF_ROUTE: ""
 
-  Set the following environment variables:
-    * CF_API
-    * CF_USERNAME
-    * CF_PASSWORD
-    * CF_SKIP_SSL_VALIDATION (optional)
-steps:
+  steps:
   - command: "buildkite-agent pipeline upload .buildkite/pipeline.single.yml"
     label: ":pipeline:"
