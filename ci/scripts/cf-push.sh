@@ -26,8 +26,9 @@ export PATH=$PWD/bin:$PATH
 
 ( set -x; cf version )
 
-echo "+ cf api \"${CF_API}\" ${CF_SKIP_SSL_VALIDATION:=--skip-ssl-validation}"
-cf api "${CF_API}" ${CF_SKIP_SSL_VALIDATION:=--skip-ssl-validation}
+[[ "${CF_SKIP_SSL_VALIDATION:-X}" == "X" ]] || { export CF_SKIP_SSL_VALIDATION="--skip-ssl-validation"; }
+echo "+ cf api \"${CF_API}\" ${CF_SKIP_SSL_VALIDATION}"
+cf api "${CF_API}" ${CF_SKIP_SSL_VALIDATION}
 echo
 
 echo "+ cf auth \"${CF_USERNAME}\" [redacted]"
