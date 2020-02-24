@@ -5,9 +5,10 @@ steps:
   # - plugins:
   #   # https://github.com/buildkite-plugins/detect-clowns-buildkite-plugin
   #   - detect-clowns#v2.0.0: ~
-  - label: ":hammer: CF Push"
+  - label: ":cloudfoundry:"
     command: "ci/scripts/cf-push.sh"
     artifact_paths: "."
     plugins:
       - docker#v3.5.0:
           image: "starkandwayne/update-all-cf-buildpacks:latest"
+          propagate-environment: true
