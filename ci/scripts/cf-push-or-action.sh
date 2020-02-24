@@ -48,7 +48,7 @@ echo
 
 if [[ "${CF_ACTION:-push}" == "delete" ]]; then
   echo "+ cf delete buildkite-cloudfoundry-demo-app"
-  cf delete buildkite-cloudfoundry-demo-app
+  cf delete buildkite-cloudfoundry-demo-app -f
 else
   echo "+ cf push --var route=${CF_ROUTE}"
   cf push --var route="${CF_ROUTE}"
