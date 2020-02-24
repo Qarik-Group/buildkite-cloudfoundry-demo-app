@@ -5,13 +5,13 @@ env:
   CF_ORGANIZATION: ""
   CF_SPACE_STAGING: ""
   CF_ROUTE_STAGING: ""
-  CF_SPACE_PRODUCTION: ""
-  CF_ROUTE_PRODUCTION: ""
+  CF_SPACE_PRODUCTION: "<optional>"
+  CF_ROUTE_PRODUCTION: "<optional>"
   CF_API: "<should provide via secrets; delete me>"
   CF_USERNAME: "<should provide via secrets; delete me>"
   CF_PASSWORD: "<should provide via secrets; delete me>"
   CF_SKIP_SSL_VALIDATION: ""
 
   steps:
-  - command: "buildkite-agent pipeline upload .buildkite/pipeline.staging-then-production.yml"
+  - command: "buildkite-agent pipeline upload .buildkite/pipeline.dynamic.yml"
     label: ":pipeline:"
