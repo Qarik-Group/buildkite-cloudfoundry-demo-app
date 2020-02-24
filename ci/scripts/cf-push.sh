@@ -2,10 +2,14 @@
 
 set -eu
 
-CF_CLI_VERSION=${CF_CLI_VERSION:-6.49.0}
+CF_ORGANIZATION=$(buildkite-agent meta-data get cf-organization)
+CF_SPACE=$(       buildkite-agent meta-data get cf-space)
+
 : ${CF_API:?required}
 : ${CF_USERNAME:?required}
 : ${CF_PASSWORD:?required}
+
+CF_CLI_VERSION=${CF_CLI_VERSION:-6.49.0}
 
 mkdir -p bin
 export PATH=$PWD/bin:$PATH
@@ -26,4 +30,7 @@ echo cf api "${CF_API}" ${CF_SKIP_SSL_VALIDATION:=--skip-ssl-validation}
 cf api "${CF_API}" ${CF_SKIP_SSL_VALIDATION:=--skip-ssl-validation}
 
 echo cf login "${CF_USERNAME}" [redacted]
-echo cf login "${CF_USERNAME}" "${CF_PASSWORD}"
+cf login "${CF_USERNAME}" "${CF_PASSWORD}"
+
+echo cf target -o "${CF_ORGANIZATION}" -s "${CF_SPACE}"
+cf target -o "${CF_ORGANIZATION}" -s "${CF_SPACE}"

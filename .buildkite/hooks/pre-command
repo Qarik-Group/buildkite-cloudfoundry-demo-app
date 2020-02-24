@@ -1,7 +1,0 @@
-#!/bin/bash
-
-set -eu -o pipefail
-
-echo '--- :sparkles: Pre-command'
-
-echo "This is an example of a pre-command hook from .buildkite/hooks/pre-command"
