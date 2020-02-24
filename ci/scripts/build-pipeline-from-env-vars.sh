@@ -2,7 +2,7 @@
 
 set -eu
 
-env | sort
+env | sort >&2
 
 cat <<YAML
 steps:
