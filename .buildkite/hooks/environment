@@ -1,7 +1,0 @@
-#!/bin/bash
-
-set -eu -o pipefail
-
-echo '--- :house_with_garden: Setting up the environment'
-
-export CF_API=https://api.run.pivotal.io
