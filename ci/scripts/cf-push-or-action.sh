@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# USAGE: ./cf-push-or-action.sh
+# To delete the app: CF_ACTION=delete ./cf-push-or-action.sh
+
 set -eu
 
 CF_ORGANIZATION=${CF_ORGANIZATION:-$(buildkite-agent meta-data get cf-organization)}
@@ -43,5 +46,10 @@ echo "+ cf target -o \"${CF_ORGANIZATION}\" -s \"${CF_SPACE}\""
 cf target -o "${CF_ORGANIZATION}" -s "${CF_SPACE}"
 echo
 
-echo "+ cf push --var route=${CF_ROUTE}"
-cf push --var route="${CF_ROUTE}"
+if [[ "${CF_ACTION}" == "delete" ]]; then
+  echo "+ cf delete buildkite-cloudfoundry-demo-app"
+  cf delete buildkite-cloudfoundry-demo-app
+else
+  echo "+ cf push --var route=${CF_ROUTE}"
+  cf push --var route="${CF_ROUTE}"
+fi

@@ -7,18 +7,9 @@ steps:
   # https://buildkite.com/docs/deployments#manual-approval-steps
   # - block: "Deploy"
   #   prompt: "Deploy to production?"
-  # - block: "Deployment"
-  #   prompt: "Fill out the details for deployment"
-  #   fields:
-  #     - text: "Organization"
-  #       key: "cf-organization"
-  #       hint: "`cf target -o <org>`"
-  #     - text: "Space"
-  #       key: "cf-space"
-  #       hint: "`cf target -s <space>`"
 
   - label: ":cloudfoundry:"
-    command: "ci/scripts/cf-push.sh"
+    command: "ci/scripts/cf-push-or-action.sh"
     artifact_paths: "."
     concurrency: 1
     concurrency_group: "cf-push"
