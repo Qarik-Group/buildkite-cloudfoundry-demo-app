@@ -1,5 +1,9 @@
 env:
   CF_API: ""
+  CF_SKIP_SSL_VALIDATION: ""
+  CF_USERNAME: ""
+  CF_PASSWORD: ""
+  CF_ORGANIZATION: ""
 
 steps:
   # - plugins:
