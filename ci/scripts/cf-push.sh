@@ -2,8 +2,8 @@
 
 set -eu
 
-CF_ORGANIZATION=$(buildkite-agent meta-data get cf-organization)
-CF_SPACE=$(       buildkite-agent meta-data get cf-space)
+CF_ORGANIZATION=${CF_ORGANIZATION:-$(buildkite-agent meta-data get cf-organization)}
+CF_SPACE=${CF_SPACE:-$(buildkite-agent meta-data get cf-space)}
 
 : ${CF_API:?required}
 : ${CF_USERNAME:?required}
