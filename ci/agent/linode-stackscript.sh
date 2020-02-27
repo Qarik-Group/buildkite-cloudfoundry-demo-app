@@ -7,6 +7,7 @@ exec >/var/log/stackscript.log 2>&1
 set -eux
 
 # <UDF name="buildkite_token" Label="Buildkite account token" />
+# <UDF name="buildkite_spawn" Label="The number of agents to spawn in parallel" default="5" />
 
 apk add docker bash git
 
@@ -25,6 +26,9 @@ mv /root/.buildkite-agent $BUILDKITE_DIR
 
 export BUILDKITE_AGENT_NAME="linode-$LINODE_ID-dc-$LINODE_DATACENTERID"
 sed -i "s/name=.*$/name=\"$BUILDKITE_AGENT_NAME\"/g" $BUILDKITE_DIR/buildkite-agent.cfg
+cat <<CFG >> $BUILDKITE_DIR/buildkite-agent.cfg
+spawn="$BUILDKITE_SPAWN"
+CFG
 
 chown -Rh buildkite:buildkite $BUILDKITE_DIR
 
