@@ -8,10 +8,6 @@ depend() {
 start() {
     BUILDKITE_DIR=/home/buildkite/.buildkite-agent
 
-    mkdir -p $BUILDKITE_DIR
-    mkdir -m 0755 $BUILDKITE_DIR/builds
-    mkdir -m 0755 $BUILDKITE_DIR/plugins
-    mkdir -m 0755 $BUILDKITE_DIR/hooks
     chown -hR buildkite:buildkite $BUILDKITE_DIR
 
     nohup sudo --user buildkite $BUILDKITE_DIR/bin/buildkite-agent start 2>&1 >> /var/log/buildkite-agent.log &

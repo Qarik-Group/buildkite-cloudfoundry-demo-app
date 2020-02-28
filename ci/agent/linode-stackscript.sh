@@ -8,8 +8,55 @@ set -eux
 
 # <UDF name="buildkite_token" Label="Buildkite account token" />
 # <UDF name="buildkite_spawn" Label="The number of agents to spawn in parallel" default="5" />
+# <UDF name="buildkite_secrets_bucket" Label="[optional] AWS S3 bucket containing secrets" default="" />
+# <UDF name="aws_access_key" Label="[optional] AWS access key for S3 buckets" default="" />
+# <UDF name="aws_secret_password" Label="[optional] AWS access secret key for S3 buckets" default="" />
 
-apk add docker bash git
+# explicit aws installation to support alpine
+install_aws() {
+  apk add openssh-client groff less -uUv --force-overwrite
+  apk --update add --virtual .build-dependencies python3-dev libffi-dev openssl-dev build-base
+  pip3 install --no-cache --upgrade \
+    requests \
+    awscli \
+    awsebcli \
+    boto3 \
+    cfn-flip \
+    cfn-lint \
+    PyYAML \
+    sceptre
+
+  mkdir ~buildkite/.aws
+  cat > ~buildkite/.aws/config <<CONFIG
+[default]
+region = us-east-1
+CONFIG
+
+  cat > ~buildkite/.aws/credentials <<CREDS
+[default]
+aws_access_key_id = ${AWS_ACCESS_KEY}
+aws_secret_access_key = ${AWS_SECRET_PASSWORD}
+CREDS
+
+  chmod 700 ~buildkite/.aws
+  chmod 600 ~buildkite/.aws/*
+}
+
+install_s3_plugin() {
+  S3_SECRETS_DIR=~buildkite/.buildkite-agent/plugins/elastic-ci-stack-s3-secrets-hooks
+
+  git clone \
+    https://github.com/buildkite/elastic-ci-stack-s3-secrets-hooks \
+    $S3_SECRETS_DIR
+
+  cat > ~/.buildkite-agent/hooks/environment <<SHELL
+export BUILDKITE_PLUGIN_S3_SECRETS_BUCKET="$BUILDKITE_SECRETS_BUCKET"
+
+source $S3_SECRETS_DIR/hooks/environment
+SHELL
+}
+
+apk add curl docker bash git ca-certificates
 
 rc-update add docker boot
 service docker start
@@ -30,8 +77,15 @@ cat <<CFG >> $BUILDKITE_DIR/buildkite-agent.cfg
 spawn="$BUILDKITE_SPAWN"
 CFG
 
-chown -Rh buildkite:buildkite $BUILDKITE_DIR
+[[ -n "${BUILDKITE_SECRETS_AWS_S3_BUCKET:-}" && -n "${AWS_ACCESS_KEY:-}" &&  -n "${AWS_SECRET_PASSWORD:-}" ]] && {
+  echo "--> Setup AWS S3 buckets"
+  install_aws
 
+  echo "--> Install S3 plugin"
+  install_s3_plugin
+}
+
+chown -Rh buildkite:buildkite $BUILDKITE_DIR
 
 curl -L https://raw.githubusercontent.com/starkandwayne/buildkite-cloudfoundry-demo-app/master/ci/agent/buildkite-agent.openrc.sh > /etc/init.d/buildkite-agent
 chmod +x /etc/init.d/buildkite-agent
