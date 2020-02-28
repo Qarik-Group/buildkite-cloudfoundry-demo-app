@@ -38,6 +38,7 @@ aws_access_key_id = ${AWS_ACCESS_KEY}
 aws_secret_access_key = ${AWS_SECRET_PASSWORD}
 CREDS
 
+  chown -Rh buildkite:buildkite ~buildkite/.aws
   chmod 700 ~buildkite/.aws
   chmod 600 ~buildkite/.aws/*
 }
