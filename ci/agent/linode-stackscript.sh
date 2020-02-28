@@ -49,7 +49,7 @@ install_s3_plugin() {
     https://github.com/buildkite/elastic-ci-stack-s3-secrets-hooks \
     $S3_SECRETS_DIR
 
-  cat > ~/.buildkite-agent/hooks/environment <<SHELL
+  cat > ~buildkite/.buildkite-agent/hooks/environment <<SHELL
 export BUILDKITE_PLUGIN_S3_SECRETS_BUCKET="$BUILDKITE_SECRETS_BUCKET"
 
 source $S3_SECRETS_DIR/hooks/environment
@@ -77,7 +77,7 @@ cat <<CFG >> $BUILDKITE_DIR/buildkite-agent.cfg
 spawn="$BUILDKITE_SPAWN"
 CFG
 
-[[ -n "${BUILDKITE_SECRETS_AWS_S3_BUCKET:-}" && -n "${AWS_ACCESS_KEY:-}" &&  -n "${AWS_SECRET_PASSWORD:-}" ]] && {
+[[ -n "${BUILDKITE_SECRETS_BUCKET:-}" && -n "${AWS_ACCESS_KEY:-}" &&  -n "${AWS_SECRET_PASSWORD:-}" ]] && {
   echo "--> Setup AWS S3 buckets"
   install_aws
 
