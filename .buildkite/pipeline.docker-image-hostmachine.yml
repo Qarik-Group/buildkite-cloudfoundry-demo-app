@@ -7,9 +7,3 @@ steps:
       - docker-login#v2.0.1:
           username: drnic
           password-env: DOCKER_LOGIN_PASSWORD
-      - docker#v3.5.0:
-          image: "docker:latest"
-          always-pull: true
-          volumes:
-            - "/var/run/docker.sock:/var/run/docker.sock"
-            - "/home/buildkite/.docker/config.json:/root/.docker/config.json"
