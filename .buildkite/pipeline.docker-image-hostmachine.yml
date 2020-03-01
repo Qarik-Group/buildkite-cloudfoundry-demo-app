@@ -5,5 +5,6 @@ steps:
       - "docker push starkandwayne/buildkite-cloudfoundry-demo-app:latest"
     plugins:
       - docker-login#v2.0.1:
+          server: hub.docker.com
           username: drnic
           password-env: DOCKER_LOGIN_PASSWORD
