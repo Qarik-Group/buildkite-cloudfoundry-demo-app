@@ -1,0 +1,10 @@
+steps:
+- command: "echo deploying..."
+  label: ":cloudfoundry:"
+
+- wait
+
+- block: "Keep?"
+  prompt: "Do you want to keep the app?"
+- command: ".buildkite/scripts/wait-and-cleanup-app.sh"
+  label: ":timer_clock:"

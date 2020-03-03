@@ -4,21 +4,15 @@
 # To delete the app: CF_ACTION=delete ./cf-push-or-action.sh
 set -eu
 
-env
-
 [[ "${CF_SPACE_SELECTOR:-X}" == "X" ]] || {
   CF_SPACE="${!CF_SPACE_SELECTOR}"
 }
-[[ "${CF_ROUTE_SELECTOR:-X}" == "X" ]] || {
-  CF_ROUTE="${!CF_ROUTE_SELECTOR}"
-}
 
-: ${CF_API:?required}
-: ${CF_USERNAME:?required}
-: ${CF_PASSWORD:?required}
-: ${CF_ORGANIZATION:?required}
-: ${CF_SPACE:?required}
-: ${CF_ROUTE:?required}
+: "${CF_API:?required}"
+: "${CF_USERNAME:?required}"
+: "${CF_PASSWORD:?required}"
+: "${CF_ORGANIZATION:?required}"
+: "${CF_SPACE:?required}"
 
 CF_CLI_VERSION=${CF_CLI_VERSION:-6.49.0}
 

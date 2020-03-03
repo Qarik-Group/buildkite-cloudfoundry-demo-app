@@ -1,23 +1,20 @@
 steps:
   - label: ":cloudfoundry:"
-    command: "ci/scripts/cf-push-or-action.sh"
-    artifact_paths: "."
+    commands:
+    -  ".buildkite/scripts/cf-login.sh"
+    -  ".buildkite/scripts/cf-push-or-action.sh"
     concurrency: 1
     concurrency_group: "cf-push"
-    plugins:
-      - docker#v3.5.0:
-          image: "starkandwayne/update-all-cf-buildpacks:latest"
-          propagate-environment: true
+    # plugins:
+    #   - docker#v3.5.0:
+    #       image: "starkandwayne/update-all-cf-buildpacks:latest"
+    #       propagate-environment: true
     timeout_in_minutes: 5
     env:
-      CF_API: ""
-      CF_SKIP_SSL_VALIDATION: ""
-      CF_USERNAME: ""
-      CF_PASSWORD: ""
       CF_SPACE_SELECTOR: CF_SPACE_STAGING
       CF_ROUTE_SELECTOR: CF_ROUTE_STAGING
   - label: ":pipeline:"
-    command: "ci/scripts/build-pipeline-from-env-vars.sh | buildkite-agent pipeline upload"
+    command: ".buildkite/scripts/build-pipeline-from-env-vars.sh | buildkite-agent pipeline upload"
     # TODO: need an image with buildkite-agent & git
     # plugins:
     #   - docker#v3.5.0:

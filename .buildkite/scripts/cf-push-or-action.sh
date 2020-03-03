@@ -5,6 +5,11 @@
 
 set -eu
 
+[[ "${CF_ROUTE_SELECTOR:-X}" == "X" ]] || {
+  CF_ROUTE="${!CF_ROUTE_SELECTOR}"
+}
+: "${CF_ROUTE:?required}"
+
 if [[ "${CF_ACTION:-push}" == "delete" ]]; then
   ( set -x; cf delete buildkite-cloudfoundry-demo-app -f )
 else
