@@ -7,10 +7,10 @@ env:
   CF_ROUTE_STAGING: ""
   CF_SPACE_PRODUCTION: "<optional>"
   CF_ROUTE_PRODUCTION: "<optional>"
-  CF_API: "<should provide via secrets; delete me>"
-  CF_USERNAME: "<should provide via secrets; delete me>"
-  CF_PASSWORD: "<should provide via secrets; delete me>"
-  CF_SKIP_SSL_VALIDATION: ""
+  CF_API: "<should provide via secrets>"
+  CF_USERNAME: "<should provide via secrets>"
+  CF_PASSWORD: "<should provide via secrets>"
+  CF_SKIP_SSL_VALIDATION: "<optional>"
 
 steps:
   - command: "buildkite-agent pipeline upload .buildkite/pipeline.dynamic.yml"

@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# USAGE: ./cf-push-or-action.sh
-# To delete the app: CF_ACTION=delete ./cf-push-or-action.sh
 set -eu
 
 : "${CF_API:?required}"
