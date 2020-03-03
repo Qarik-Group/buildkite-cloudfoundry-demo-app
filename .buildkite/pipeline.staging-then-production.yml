@@ -1,3 +1,5 @@
+env:
+  CF_APPNAME: buildkite-cloudfoundry-demo-app
 
 steps:
   # - plugins:

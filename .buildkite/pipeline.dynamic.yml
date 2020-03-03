@@ -1,3 +1,6 @@
+env:
+  CF_APPNAME: buildkite-cloudfoundry-demo-app
+
 steps:
   - label: ":cloudfoundry:"
     commands:
