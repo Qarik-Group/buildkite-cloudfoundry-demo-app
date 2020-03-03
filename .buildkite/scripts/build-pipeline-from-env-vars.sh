@@ -10,7 +10,7 @@ steps:
     prompt: "Deploy to production?"
 
   - label: ":cloudfoundry: production"
-    command: "ci/scripts/cf-push-or-action.sh"
+    command: ".buildkite/scripts/cf-push-or-action.sh"
     artifact_paths: "."
     concurrency: 1
     concurrency_group: "cf-push"
