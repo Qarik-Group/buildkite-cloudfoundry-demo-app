@@ -4,15 +4,9 @@
 # To delete the app: CF_ACTION=delete ./cf-push-or-action.sh
 set -eu
 
-[[ "${CF_SPACE_SELECTOR:-X}" == "X" ]] || {
-  CF_SPACE="${!CF_SPACE_SELECTOR}"
-}
-
 : "${CF_API:?required}"
 : "${CF_USERNAME:?required}"
 : "${CF_PASSWORD:?required}"
-: "${CF_ORGANIZATION:?required}"
-: "${CF_SPACE:?required}"
 
 CF_CLI_VERSION=${CF_CLI_VERSION:-6.49.0}
 
@@ -38,9 +32,5 @@ echo
 
 echo "+ cf auth ${CF_USERNAME} [redacted]"
 cf auth "${CF_USERNAME}" "${CF_PASSWORD}"
-echo
-
-echo "+ cf target -o ${CF_ORGANIZATION} -s ${CF_SPACE}"
-cf target -o "${CF_ORGANIZATION}" -s "${CF_SPACE}"
 echo
 
