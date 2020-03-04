@@ -25,11 +25,15 @@ echo
 ( set -x; cf push "$CF_APPNAME" -f "${CF_MANIFEST}" --var route="${CF_ROUTE}" )
 
 echo
-app_guid=$(cf app "$CF_APPNAME" --guid)
+APP_GUID="$(cf app "$CF_APPNAME" --guid)"
+APP_URI="/v3/apps/${APP_GUID}"
+
 # TODO: set reap-me-after annotation
-annotation=cf.starkandwayne.com/reap-me-after
 reap_timestamp="2020-03-04"
-echo "Setting annotation $annotation=$reap_timestamp"
-annotation_json=$(jq -rc --arg annotation "$annotation" --arg timestamp "$reap_timestamp" '.[$annotation] = $timestamp' <<< '{}')
+commit_sha="$(git rev-parse --short HEAD)"
+
+annotation_json=$(jq -rc --arg annotation "cf.starkandwayne.com/reap-me-after" --arg value "$reap_timestamp" '.[$annotation] = $value' <<< '{}')
+annotation_json=$(jq -rc --arg annotation "cf.starkandwayne.com/git-commit" --arg value "$commit_sha" '.[$annotation] = $value' <<< "$annotation_json")
+
 patch_json=$(jq -rc '{"metadata": {"annotations": .}}' <<< "$annotation_json")
-( set -x; cf curl "/v3/apps/$app_guid" -X PATCH -d "$patch_json")
+( set -x; cf curl "$APP_URI" -X PATCH -d "$patch_json")
