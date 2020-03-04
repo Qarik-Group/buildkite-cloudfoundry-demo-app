@@ -10,7 +10,7 @@ start() {
 
     chown -hR buildkite:buildkite $BUILDKITE_DIR
 
-    nohup sudo --user buildkite $BUILDKITE_DIR/bin/buildkite-agent start --tags-from-host 2>&1 >> /var/log/buildkite-agent.log &
+    nohup sudo --user buildkite $BUILDKITE_DIR/bin/buildkite-agent start 2>&1 >> /var/log/buildkite-agent.log &
     sleep 1
     echo $! > /var/run/buildkite-agent.pid
 

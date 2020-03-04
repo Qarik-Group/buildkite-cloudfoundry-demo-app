@@ -12,6 +12,10 @@ set -eux
 # <UDF name="aws_access_key" Label="[optional] AWS access key for S3 buckets" default="" />
 # <UDF name="aws_secret_password" Label="[optional] AWS access secret key for S3 buckets" default="" />
 
+LINODE_STACK=${LINODE_STACK:-633367}
+BUILDKITE_QUEUE=${BUILDKITE_QUEUE:-default}
+DOCKER_VERSION=$(docker --version | cut -f3 -d' ' | sed 's/,//')
+
 # explicit aws installation to support alpine
 install_aws() {
   apk add openssh-client groff less -uUv --force-overwrite
@@ -76,6 +80,8 @@ export BUILDKITE_AGENT_NAME="linode-$LINODE_ID-dc-$LINODE_DATACENTERID"
 sed -i "s/name=.*$/name=\"$BUILDKITE_AGENT_NAME\"/g" $BUILDKITE_DIR/buildkite-agent.cfg
 cat <<CFG >> $BUILDKITE_DIR/buildkite-agent.cfg
 spawn="$BUILDKITE_SPAWN"
+tags=queue=${BUILDKITE_QUEUE},docker=${DOCKER_VERSION},linode-stack=${LINODE_STACK},linode-id=${LINODE_ID},linode-ram=${LINODE_RAM},linode-dc-id=${LINODE_DATACENTERID}
+tags-from-host=true
 CFG
 
 [[ -n "${BUILDKITE_SECRETS_BUCKET:-}" && -n "${AWS_ACCESS_KEY:-}" &&  -n "${AWS_SECRET_PASSWORD:-}" ]] && {
