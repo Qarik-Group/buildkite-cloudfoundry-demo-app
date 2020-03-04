@@ -14,7 +14,6 @@ set -eux
 
 LINODE_STACK=${LINODE_STACK:-633367}
 BUILDKITE_QUEUE=${BUILDKITE_QUEUE:-default}
-DOCKER_VERSION=$(docker --version | cut -f3 -d' ' | sed 's/,//')
 
 # explicit aws installation to support alpine
 install_aws() {
@@ -75,6 +74,8 @@ TOKEN="$BUILDKITE_TOKEN" bash -c "`curl -sL https://raw.githubusercontent.com/bu
 
 BUILDKITE_DIR=/home/buildkite/.buildkite-agent
 mv /root/.buildkite-agent $BUILDKITE_DIR
+
+DOCKER_VERSION=$(docker --version | cut -f3 -d' ' | sed 's/,//')
 
 export BUILDKITE_AGENT_NAME="linode-$LINODE_ID-dc-$LINODE_DATACENTERID"
 sed -i "s/name=.*$/name=\"$BUILDKITE_AGENT_NAME\"/g" $BUILDKITE_DIR/buildkite-agent.cfg
