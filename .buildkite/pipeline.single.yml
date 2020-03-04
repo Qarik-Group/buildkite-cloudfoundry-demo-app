@@ -6,6 +6,7 @@ steps:
     commands:
     -  ".buildkite/scripts/cf-login.sh"
     -  ".buildkite/scripts/cf-push-or-action.sh"
+    -  ".buildkite/scripts/cf-annotations.sh"
     concurrency: 1
     concurrency_group: "cf-push"
     # plugins:

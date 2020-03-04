@@ -13,13 +13,14 @@ steps:
     commands:
     -  ".buildkite/scripts/cf-login.sh"
     -  ".buildkite/scripts/cf-push-or-action.sh"
+    -  ".buildkite/scripts/cf-annotations.sh"
     artifact_paths: "."
     concurrency: 1
     concurrency_group: "cf-push"
-    plugins:
-      - docker#v3.5.0:
-          image: "starkandwayne/update-all-cf-buildpacks:latest"
-          propagate-environment: true
+    # plugins:
+    #   - docker#v3.5.0:
+    #       image: "starkandwayne/update-all-cf-buildpacks:latest"
+    #       propagate-environment: true
     timeout_in_minutes: 5
     env:
       CF_SPACE_SELECTOR: CF_SPACE_PRODUCTION
